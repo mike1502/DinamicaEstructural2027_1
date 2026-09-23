@@ -4,7 +4,6 @@ Created on Tue Sep 22 17:34:21 2026
 
 @author: MCarrilloL
 """
-
 #%% GRAFICA DE LA FUNCIÓN ORIGINAL
 
 import numpy as np #importar librerías para generar arreglos numéricos (vectores)
@@ -73,6 +72,28 @@ plt.show()
 #Muestre la solución para N=1,5,20,100 y 500 términos
 
 N=np.array([1,5,20,100,500])
+t_serie=np.linspace(0,6,1000)
+
+for i in N:
+    u1=np.ones(len(t_serie))*2/3
+    for n in range(1,i+1):
+        u1+=(24/(n**2*np.pi**2))*(1-np.cos(n*np.pi/3))*(np.cos(n*np.pi/3*(t_serie-1)))
+    plt.plot(t_serie,u1, label=f'N={i}')
+
+plt.title('Serie de Fourier del primer triángulo [0,2]')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Amplitud')
+plt.xlim(0, 2)
+plt.ylim(-0.2, 4.5)
+plt.grid(True)
+
+
+xtest=np.array([0, 1, 2])
+ytest=np.array([0, 4, 0])
+
+plt.plot(xtest,ytest,'k--', linewidth=2, label="Función original")
+plt.legend()
+plt.show()
 
 
 
