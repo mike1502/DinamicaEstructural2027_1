@@ -96,6 +96,7 @@ plt.legend()
 plt.show()
 
 
-
+#%%
+#Serie de Fourier de los siguientes dos triángulos
 
 
