@@ -99,4 +99,178 @@ plt.show()
 #%%
 #Serie de Fourier de los siguientes dos triángulos
 
+import numpy as np
+import matplotlib.pyplot as plt
 
+# Número de términos
+N = np.array([50, 100, 250, 500])
+
+# Tiempo
+t = np.linspace(0, 6, 2000)
+
+# Función original
+t_original = np.array([0, 1, 2, 3, 4, 5, 6])
+u_original = np.array([0, 4, 0, -2, 0, 8, 0])
+
+
+# -----------------------------------
+# Diferentes números de términos
+# -----------------------------------
+
+for Nmax in N:
+
+    # Triángulo 1
+    u1 = np.ones(len(t)) * 2/3
+
+    # Triángulo 2
+    u2 = np.ones(len(t)) * (-1/3)
+
+    # Triángulo 3
+    u3 = np.ones(len(t)) * 4/3
+
+    # Suma de las series
+    for n in range(1, Nmax + 1):
+
+        u1 += (
+            (24/(n**2*np.pi**2))
+            * (1 - np.cos(n*np.pi/3))
+            * np.cos(n*np.pi/3 * (t-1))
+        )
+
+        u2 += (
+            -(12/(n**2*np.pi**2))
+            * (1 - np.cos(n*np.pi/3))
+            * np.cos(n*np.pi/3 * (t-3))
+        )
+
+        u3 += (
+            (48/(n**2*np.pi**2))
+            * (1 - np.cos(n*np.pi/3))
+            * np.cos(n*np.pi/3 * (t-5))
+        )
+
+    # Señal completa
+    u = u1 + u2 + u3
+
+    # -----------------------------------
+    # Gráfica
+    # -----------------------------------
+
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(
+        t,
+        u,
+        label=f'Serie de Fourier, N = {Nmax}',
+        linewidth=2
+    )
+
+    plt.plot(
+        t_original,
+        u_original,
+        '--',
+        label='Señal original',
+        linewidth=2
+    )
+
+    plt.xlabel('Tiempo [s]')
+    plt.ylabel('Amplitud')
+
+    plt.xlim(0, 6)
+    plt.ylim(-2.5, 8.5)
+
+    plt.grid(True)
+    plt.legend()
+
+    plt.show()
+    
+
+for Nmax in N:
+    ...
+    plt.plot(t, u, label=f'N = {Nmax}')
+
+plt.plot(t_original, u_original, '--',
+         linewidth=2, label='Señal original')
+
+plt.legend()
+plt.show()
+
+#%%
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Número de términos
+N = np.array([5, 10, 20, 50, 100, 500])
+
+# Tiempo
+t = np.linspace(0, 6, 4000)
+
+# Función original
+t_original = np.array([0, 1, 2, 3, 4, 5, 6])
+u_original = np.array([0, 4, 0, -2, 0, 8, 0])
+
+
+for Nmax in N:
+
+    # Triángulo 1
+    u1 = np.ones(len(t)) * 2/3
+
+    # Triángulo 2
+    u2 = np.ones(len(t)) * (-1/3)
+
+    # Triángulo 3
+    u3 = np.ones(len(t)) * 4/3
+
+    for n in range(1, Nmax + 1):
+
+        u1 += (
+            (24/(n**2*np.pi**2))
+            * (1 - np.cos(n*np.pi/3))
+            * np.cos(n*np.pi/3 * (t-1))
+        )
+
+        u2 += (
+            -(12/(n**2*np.pi**2))
+            * (1 - np.cos(n*np.pi/3))
+            * np.cos(n*np.pi/3 * (t-3))
+        )
+
+        u3 += (
+            (48/(n**2*np.pi**2))
+            * (1 - np.cos(n*np.pi/3))
+            * np.cos(n*np.pi/3 * (t-5))
+        )
+
+    # Señal completa
+    u = u1 + u2 + u3
+
+    # Gráfica
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(
+        t,
+        u,
+        label=f'N = {Nmax}',
+        linewidth=2
+    )
+
+    plt.plot(
+        t_original,
+        u_original,
+        'k--',
+        label='Señal original',
+        linewidth=2
+    )
+
+    plt.xlabel('Tiempo [s]')
+    plt.ylabel('Amplitud')
+
+    plt.xlim(0, 6)
+    plt.ylim(-2.5, 8.5)
+
+    plt.title(f'Reconstrucción mediante serie de Fourier — N = {Nmax}')
+
+    plt.grid(True)
+    plt.legend()
+
+    plt.show()
